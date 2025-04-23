@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Система донорства крові</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .hero-section {
+        background-color: #f8f9fa;
+        padding: 80px 0;
+        margin-bottom: 30px;
+    }
+    .feature-box {
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        height: 100%;
+    }
+    .blood-type {
+        text-align: center;
+        padding: 30px 0;
+    }
+    .blood-drop {
+        font-size: 48px;
+        color: #dc3545;
+    }
+    footer {
+        margin-top: 50px;
+        background-color: #343a40;
+        color: white;
+        padding: 30px 0;
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container">
+    <a class="navbar-brand" href="/">Система донорства крові</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="/">Головна</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/donor-registration">Реєстрація донора</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/donation-schedule">Запланувати донацію</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blood-inventory">Запаси крові</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Увійти</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1>Подаруйте життя</h1>
+        <p class="lead">Ваша донація крові може врятувати до трьох життів. Приєднуйтесь до нашої спільноти донорів вже сьогодні!</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <a href="/donor-registration" class="btn btn-danger btn-lg px-4 me-md-2">Стати донором</a>
+          <a href="/donation-schedule" class="btn btn-outline-secondary btn-lg px-4">Запланувати донацію</a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="/api/placeholder/500/300" alt="Донація крові" class="img-fluid rounded">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="container">
+  <h2 class="text-center mb-4">Чому варто стати донором?</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="feature-box">
+        <h3>Рятуєте життя</h3>
+        <p>Кожна донація може допомогти трьом різним пацієнтам у критичному стані.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-box">
+        <h3>Покращуєте здоров'я</h3>
+        <p>Регулярна здача крові зменшує ризик серцево-судинних захворювань.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="feature-box">
+        <h3>Безкоштовне обстеження</h3>
+        <p>Кожен донор проходить безкоштовний медичний огляд та аналіз крові.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blood Types Section -->
+<section class="container mt-5">
+  <h2 class="text-center mb-4">Групи крові, які потрібні зараз</h2>
+  <div class="row">
+    <div class="col-6 col-md-3">
+      <div class="blood-type">
+        <div class="blood-drop">🩸</div>
+        <h3>A+</h3>
+        <span class="badge bg-danger">Висока потреба</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="blood-type">
+        <div class="blood-drop">🩸</div>
+        <h3>O-</h3>
+        <span class="badge bg-warning text-dark">Середня потреба</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="blood-type">
+        <div class="blood-drop">🩸</div>
+        <h3>B+</h3>
+        <span class="badge bg-danger">Висока потреба</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="blood-type">
+        <div class="blood-drop">🩸</div>
+        <h3>AB-</h3>
+        <span class="badge bg-success">Достатньо</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Система донорства крові</h5>
+        <p>Наша місія - забезпечити достатню кількість донорської крові для порятунку життів.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Контакти</h5>
+        <p>Email: info@donorkrovi.ua<br>
+          Телефон: +380 44 123 4567</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Адреса</h5>
+        <p>вул. Медична, 15<br>
+          Київ, 01001<br>
+          Україна</p>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12 text-center">
+        <p>&copy; 2025 Система донорства крові. Всі права захищено.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
