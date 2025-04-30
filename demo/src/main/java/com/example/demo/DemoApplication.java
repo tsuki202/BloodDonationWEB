@@ -13,6 +13,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
+<<<<<<< HEAD
 		System.out.println("🩸 Система донорства крові запущена як веб-додаток");
+=======
+
+		// Запуск консольної програми після ініціалізації Spring context
+		System.out.println("🩸 Система донорства крові запущена");
+		new ConsoleApplication().run();
+>>>>>>> 54d3cb371fd3135584cb9fa0bf3ccab36d79fee5
 	}
 }
