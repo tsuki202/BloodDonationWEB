@@ -1,10 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Історія донацій - Система донорства крові</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .donation-card {
+            border-left: 4px solid #dc3545;
+            margin-bottom: 15px;
+        }
+        .donation-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .donation-badge {
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+        <a class="navbar-brand" href="/">🩸 Система донорства крові</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/donor/dashboard(id=${donor.id})}">Панель управління</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/donor/profile(id=${donor.id})}">Мій профіль</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/donor/donation-history(id=${donor.id})}">Історія донорства</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/donor/add-donation(id=${donor.id})}">Додати донацію</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Вихід</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
+<div class="container mt-4">
+    <h1 class="mb-4">Історія донорства</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Загальна статистика</h5>
+                    <div class="row mt-3">
+                        <div class="col-md-3 text-center">
+                            <h2 class="text-danger">8</h2>
+                            <p>Загальна кількість донацій</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h2 class="text-danger">3.6 л</h2>
+                            <p>Загальний об'єм крові</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h2 class="text-danger">24</h2>
+                            <p>Потенційно врятовані життя</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h2 class="text-danger">142</h2>
+                            <p>Зароблено балів донора</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="mb-0">Записи про донації</h5>
+                        </div>
+                        <div class="col-auto">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-secondary active">Всі</button>
+                                <button type="button" class="btn btn-outline-secondary">Цільна кров</button>
+                                <button type="button" class="btn btn-outline-secondary">Плазма</button>
+                                <button type="button" class="btn btn-outline-secondary">Тромбоцити</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="donation-card card p-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="donation-date">15.04.2025</span>
+                                <span class="badge bg-danger donation-badge ms-2">Цільна кров</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Місце:</strong> Київський міський центр крові
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Об'єм:</strong> 450 мл
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Статус:</strong> <span class="text-success">Підтверджено</span>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <button class="btn btn-sm btn-outline-secondary">Деталі</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="donation-card card p-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="donation-date">02.03.2025</span>
+                                <span class="badge bg-info donation-badge ms-2">Плазма</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Місце:</strong> Обласна станція переливання крові
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Об'єм:</strong> 600 мл
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Статус:</strong> <span class="text-success">Підтверджено</span>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <button class="btn btn-sm btn-outline-secondary">Деталі</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="donation-card card p-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="donation-date">15.01.2025</span>
+                                <span class="badge bg-warning text-dark donation-badge ms-2">Тромбоцити</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Місце:</strong> Військовий медичний центр
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Об'єм:</strong> 200 мл
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Статус:</strong> <span class="text-success">Підтверджено</span>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <button class="btn btn-sm btn-outline-secondary">Деталі</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="donation-card card p-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="donation-date">05.12.2024</span>
+                                <span class="badge bg-danger donation-badge ms-2">Цільна кров</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Місце:</strong> Київський міський центр крові
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Об'єм:</strong> 450 мл
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Статус:</strong> <span class="text-success">Підтверджено</span>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <button class="btn btn-sm btn-outline-secondary">Деталі</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="donation-card card p-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="donation-date">20.09.2024</span>
+                                <span class="badge bg-info donation-badge ms-2">Плазма</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Місце:</strong> Обласна станція переливання крові
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Об'єм:</strong> 600 мл
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Статус:</strong> <span class="text-success">Підтверджено</span>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <button class="btn btn-sm btn-outline-secondary">Деталі</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <nav>
+                        <ul class="pagination justify-content-center mb-0">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Попередня</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Наступна</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Отримані нагороди</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">🏆</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Перша донація</h6>
+                                    <p class="card-text">Отримано: 15.12.2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">🌟</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">5 донацій</h6>
+                                    <p class="card-text">Отримано: 05.12.2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">❤️</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Рятівник життя</h6>
+                                    <p class="card-text">Отримано: 20.03.2025</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">⏱️</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Постійний донор</h6>
+                                    <p class="card-text">Отримано: 15.04.2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Система донорства крові</h5>
+                <p>© 2025. Всі права захищено.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <h5>Контакти</h5>
+                <p>Email: info@donorkrovi.ua<br>Телефон: +380 44 123 4567</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
