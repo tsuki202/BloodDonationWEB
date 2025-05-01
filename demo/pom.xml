@@ -8,7 +8,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 
 	<groupId>org.example</groupId>
@@ -16,6 +16,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>blood-donation-system</name>
 	<description>Система донорства крові</description>
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -30,7 +31,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-<<<<<<< HEAD
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -45,9 +45,6 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-
-=======
->>>>>>> 54d3cb371fd3135584cb9fa0bf3ccab36d79fee5
 
 		<!-- MySQL Connector -->
 		<dependency>
@@ -69,24 +66,26 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
-
-=======
->>>>>>> 54d3cb371fd3135584cb9fa0bf3ccab36d79fee5
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- ВАЖЛИВО: Додаємо плагін компілятора -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+
+			<!-- Spring Boot плагін -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 54d3cb371fd3135584cb9fa0bf3ccab36d79fee5
 </project>
