@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="ua">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -27,23 +28,21 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/donor/dashboard(id=${donor.id})}">Панель управління</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/donor/profile(id=${donor.id})}">Мій профіль</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/donor/donation-history(id=${donor.id})}">Історія донорства</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/donor/add-donation(id=${donor.id})}">Додати донацію</a>
-                </li>
-            </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Вихід</a>
+                    <a class="nav-link" href="/donor/dashboard">Панель управління</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/donor/profile">Мій профіль</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/donor/donation-history">Історія донорства</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/donor/add-donation">Додати донацію</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Вихід</a>
                 </li>
             </ul>
         </div>

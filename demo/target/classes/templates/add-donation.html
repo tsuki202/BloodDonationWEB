@@ -72,9 +72,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="/">Головна</a></li>
-                <li class="nav-item"><a class="nav-link" href="/donor-registration">Реєстрація донора</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/donation-schedule">Запланувати донацію</a></li>
-                <li class="nav-item"><a class="nav-link" href="/blood-inventory">Запаси крові</a></li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="/donation-history">Історія донацій</a>-->
+                <!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" href="/add-donation">Запланувати донацію</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Реєстрація донора</a>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="/login">Увійти</a></li>
             </ul>
         </div>
@@ -94,7 +100,10 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="calendar-container">
-                <form id="donationScheduleForm">
+                <form id="donationScheduleForm" action="/donor/add-donation" method="post">
+                    <!-- Hidden user ID field (for authenticated users) -->
+                    <input type="hidden" id="userId" name="userId" value="">
+
                     <!-- Donation Type Selection -->
                     <div class="mb-4">
                         <h3 class="mb-3">Тип донації</h3>
@@ -132,7 +141,7 @@
                     <!-- Donation Location -->
                     <div class="mb-4">
                         <h3 class="mb-3">Місце донації</h3>
-                        <select class="form-select" id="donationLocation" required>
+                        <select class="form-select" id="location" name="location" required>
                             <option value="" selected disabled>Виберіть центр донації крові</option>
                             <option value="Київський міський центр крові">Київський міський центр крові</option>
                             <option value="Обласна станція переливання крові">Обласна станція переливання крові</option>
@@ -148,13 +157,13 @@
                             <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-04-29"><h5 class="mb-0">29 квітня</h5><small>Вівторок</small></div></div>
                             <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-04-30"><h5 class="mb-0">30 квітня</h5><small>Середа</small></div></div>
                             <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-01"><h5 class="mb-0">1 травня</h5><small>Четвер</small></div></div>
-                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-02"><h5 class="mb-0">2 травня</h5><small>П’ятниця</small></div></div>
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-02"><h5 class="mb-0">2 травня</h5><small>П'ятниця</small></div></div>
                             <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-03"><h5 class="mb-0">3 травня</h5><small>Субота</small></div></div>
                             <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-04"><h5 class="mb-0">4 травня</h5><small>Неділя</small></div></div>
                             <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-05"><h5 class="mb-0">5 травня</h5><small>Понеділок</small></div></div>
                             <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-06"><h5 class="mb-0">6 травня</h5><small>Вівторок</small></div></div>
                         </div>
-                        <input type="hidden" id="selectedDate" name="selectedDate" required>
+                        <input type="hidden" id="donationDate" name="donationDate" required>
                     </div>
 
                     <!-- Time Selection -->
@@ -170,7 +179,7 @@
                             <div class="col-md-3 mb-2"><div class="time-slot" data-time="15:00">15:00</div></div>
                             <div class="col-md-3 mb-2"><div class="time-slot" data-time="16:00">16:00</div></div>
                         </div>
-                        <input type="hidden" id="selectedTime" name="selectedTime" required>
+                        <input type="hidden" id="amount" name="amount" value="450">
                     </div>
 
                     <!-- Submit Button -->
@@ -195,8 +204,18 @@
 
 <!-- Custom Script -->
 <script>
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('userId');
+
+    // Set userId in the hidden field if it exists
+    if (userId) {
+        document.getElementById('userId').value = userId;
+    }
+
+    // Handle date selection
     const dateSlots = document.querySelectorAll('.date-slot');
-    const selectedDateInput = document.getElementById('selectedDate');
+    const selectedDateInput = document.getElementById('donationDate');
     dateSlots.forEach(slot => {
         slot.addEventListener('click', () => {
             dateSlots.forEach(s => s.classList.remove('selected'));
@@ -205,30 +224,35 @@
         });
     });
 
+    // Handle time selection
     const timeSlots = document.querySelectorAll('.time-slot');
-    const selectedTimeInput = document.getElementById('selectedTime');
     timeSlots.forEach(slot => {
         slot.addEventListener('click', () => {
             if (slot.classList.contains('unavailable')) return;
             timeSlots.forEach(s => s.classList.remove('selected'));
             slot.classList.add('selected');
-            selectedTimeInput.value = slot.getAttribute('data-time');
+            // Here, we could set the time in another hidden field if needed
         });
     });
 
+    // Form submission
     document.getElementById('donationScheduleForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const type = this.donationType.value;
-        const location = document.getElementById('donationLocation').value;
-        const date = selectedDateInput.value;
-        const time = selectedTimeInput.value;
-
-        if (!location || !date || !time) {
-            alert('Будь ласка, заповніть усі поля перед підтвердженням.');
+        if (!userId) {
+            e.preventDefault();
+            alert('Для запису на донацію необхідно увійти в систему');
+            window.location.href = '/login';
             return;
         }
 
-        alert(`✅ Ви записані на донацію:\n• Тип: ${type}\n• Місце: ${location}\n• Дата: ${date}\n• Час: ${time}`);
+        const type = this.donationType.value;
+        const location = document.getElementById('location').value;
+        const date = selectedDateInput.value;
+
+        if (!location || !date) {
+            e.preventDefault();
+            alert('Будь ласка, заповніть усі поля перед підтвердженням.');
+            return;
+        }
     });
 </script>
 </body>

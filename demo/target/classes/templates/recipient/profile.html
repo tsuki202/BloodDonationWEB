@@ -1,10 +1,374 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="uk">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Профіль реципієнта - Система донорства крові</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--        .profile-header {-->
+<!--            background-color: #f8f9fa;-->
+<!--            padding: 30px 0;-->
+<!--            margin-bottom: 30px;-->
+<!--            border-radius: 10px;-->
+<!--        }-->
+<!--        .profile-image {-->
+<!--            width: 150px;-->
+<!--            height: 150px;-->
+<!--            border-radius: 50%;-->
+<!--            object-fit: cover;-->
+<!--            border: 5px solid #dc3545;-->
+<!--        }-->
+<!--        .medical-info {-->
+<!--            padding: 20px;-->
+<!--            background-color: #f8f9fa;-->
+<!--            border-radius: 10px;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .medical-alert {-->
+<!--            padding: 15px;-->
+<!--            background-color: #f8d7da;-->
+<!--            border-left: 5px solid #dc3545;-->
+<!--            margin-bottom: 20px;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--        .form-group {-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .nav-pills .nav-link.active {-->
+<!--            background-color: #dc3545;-->
+<!--        }-->
+<!--        .nav-pills .nav-link {-->
+<!--            color: #343a40;-->
+<!--        }-->
+<!--        .contact-info-item {-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
 
-</body>
-</html>
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-danger">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand" href="/">🩸 Система донорства крові</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav me-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/recipient/dashboard">Моя панель</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/recipient/compatible-donors">Сумісні донори</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="/recipient/profile">Мій профіль</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <ul class="navbar-nav ms-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/logout">Вихід</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="container mt-4">-->
+<!--    <div class="profile-header text-center">-->
+<!--        <img src="/api/placeholder/150/150" alt="Фото профілю" class="profile-image mb-3">-->
+<!--        <h1>Олег Сидоренко</h1>-->
+<!--        <p class="lead">Реципієнт | Група крові: B+</p>-->
+<!--        <div class="d-flex justify-content-center">-->
+<!--            <span class="badge bg-primary me-2">Активний</span>-->
+<!--            <span class="badge bg-secondary me-2">Реципієнт з 2024</span>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="row">-->
+<!--        <div class="col-md-3 mb-4">-->
+<!--            <div class="list-group">-->
+<!--                <a href="#personal-info" class="list-group-item list-group-item-action active" data-bs-toggle="list">-->
+<!--                    <i class="bi bi-person me-2"></i> Особиста інформація-->
+<!--                </a>-->
+<!--                <a href="#medical-info" class="list-group-item list-group-item-action" data-bs-toggle="list">-->
+<!--                    <i class="bi bi-heart-pulse me-2"></i> Медична інформація-->
+<!--                </a>-->
+<!--                <a href="#contact-info" class="list-group-item list-group-item-action" data-bs-toggle="list">-->
+<!--                    <i class="bi bi-envelope me-2"></i> Контактна інформація-->
+<!--                </a>-->
+<!--                <a href="#notification-settings" class="list-group-item list-group-item-action" data-bs-toggle="list">-->
+<!--                    <i class="bi bi-bell me-2"></i> Налаштування сповіщень-->
+<!--                </a>-->
+<!--                <a href="#security" class="list-group-item list-group-item-action" data-bs-toggle="list">-->
+<!--                    <i class="bi bi-shield-lock me-2"></i> Безпека-->
+<!--                </a>-->
+<!--            </div>-->
+
+<!--            <div class="medical-alert mt-4">-->
+<!--                <h5><i class="bi bi-exclamation-triangle me-2"></i> Медична примітка</h5>-->
+<!--                <p class="mb-0">Необхідне переливання раз на 2 місяці.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-md-9">-->
+<!--            <div class="card">-->
+<!--                <div class="card-body">-->
+<!--                    <div class="tab-content">-->
+<!--                        <div class="tab-pane fade show active" id="personal-info">-->
+<!--                            <div class="d-flex justify-content-between align-items-center mb-4">-->
+<!--                                <h3>Особиста інформація</h3>-->
+<!--                                <button class="btn btn-outline-danger" id="editPersonalInfoBtn">-->
+<!--                                    <i class="bi bi-pencil"></i> Редагувати-->
+<!--                                </button>-->
+<!--                            </div>-->
+
+<!--                            <form id="personalInfoForm">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label for="firstName" class="form-label">Ім'я</label>-->
+<!--                                            <input type="text" class="form-control" id="firstName" value="Олег" disabled>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label for="lastName" class="form-label">Прізвище</label>-->
+<!--                                            <input type="text" class="form-control" id="lastName" value="Сидоренко" disabled>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label for="birthDate" class="form-label">Дата народження</label>-->
+<!--                                            <input type="date" class="form-control" id="birthDate" value="1985-07-15" disabled>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label for="gender" class="form-label">Стать</label>-->
+<!--                                            <select class="form-select" id="gender" disabled>-->
+<!--                                                <option value="male" selected>Чоловіча</option>-->
+<!--                                                <option value="female">Жіноча</option>-->
+<!--                                                <option value="other">Інша</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="form-group">-->
+<!--                                    <label for="address" class="form-label">Адреса</label>-->
+<!--                                    <textarea class="form-control" id="address" rows="2" disabled>вул. Незалежності, 42, Київ, 01001</textarea>-->
+<!--                                </div>-->
+
+<!--                                <div class="form-group d-none" id="savePersonalInfoBtn">-->
+<!--                                    <button type="button" class="btn btn-primary">Зберегти зміни</button>-->
+<!--                                    <button type="button" class="btn btn-secondary ms-2">Скасувати</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+
+<!--                        <div class="tab-pane fade" id="medical-info">-->
+<!--                            <div class="d-flex justify-content-between align-items-center mb-4">-->
+<!--                                <h3>Медична інформація</h3>-->
+<!--                                <button class="btn btn-outline-danger">-->
+<!--                                    <i class="bi bi-pencil"></i> Редагувати-->
+<!--                                </button>-->
+<!--                            </div>-->
+
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <div class="medical-info">-->
+<!--                                        <h5>Основна інформація</h5>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <strong>Група крові:</strong> B+-->
+<!--                                        </div>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <strong>Резус-фактор:</strong> Позитивний-->
+<!--                                        </div>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <strong>Діагноз:</strong> Таласемія-->
+<!--                                        </div>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <strong>Останнє переливання:</strong> 15.04.2025-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="col-md-6">-->
+<!--                                    <div class="medical-info">-->
+<!--                                        <h5>Медичні потреби</h5>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <strong>Частота переливань:</strong> Кожні 2 місяці-->
+<!--                                        </div>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <strong>Потрібні компоненти:</strong> Еритроцити-->
+<!--                                        </div>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <strong>Дозування:</strong> 2 одиниці-->
+<!--                                        </div>-->
+<!--                                        <div class="mb-3">-->
+<!--                                            <strong>Лікар:</strong> Д-р Віктор Мельник-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="medical-info mt-3">-->
+<!--                                <h5>Історія лікування</h5>-->
+<!--                                <table class="table table-striped">-->
+<!--                                    <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th>Дата</th>-->
+<!--                                        <th>Процедура</th>-->
+<!--                                        <th>Донор/Джерело</th>-->
+<!--                                        <th>Примітки</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    <tr>-->
+<!--                                        <td>15.04.2025</td>-->
+<!--                                        <td>Переливання еритроцитів</td>-->
+<!--                                        <td>Банк крові</td>-->
+<!--                                        <td>Успішно</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>10.02.2025</td>-->
+<!--                                        <td>Переливання еритроцитів</td>-->
+<!--                                        <td>Спрямований донор</td>-->
+<!--                                        <td>Успішно</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>05.12.2024</td>-->
+<!--                                        <td>Переливання еритроцитів</td>-->
+<!--                                        <td>Банк крові</td>-->
+<!--                                        <td>Легка реакція</td>-->
+<!--                                    </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="tab-pane fade" id="contact-info">-->
+<!--                            <div class="d-flex justify-content-between align-items-center mb-4">-->
+<!--                                <h3>Контактна інформація</h3>-->
+<!--                                <button class="btn btn-outline-danger">-->
+<!--                                    <i class="bi bi-pencil"></i> Редагувати-->
+<!--                                </button>-->
+<!--                            </div>-->
+
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <div class="contact-info-item">-->
+<!--                                        <label class="form-label">Email</label>-->
+<!--                                        <div class="input-group">-->
+<!--                                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>-->
+<!--                                            <input type="email" class="form-control" value="oleg@example.com" disabled>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="contact-info-item">-->
+<!--                                        <label class="form-label">Телефон</label>-->
+<!--                                        <div class="input-group">-->
+<!--                                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>-->
+<!--                                            <input type="tel" class="form-control" value="+380661234567" disabled>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="col-md-6">-->
+<!--                                    <div class="contact-info-item">-->
+<!--                                        <label class="form-label">Екстрений контакт</label>-->
+<!--                                        <div class="input-group">-->
+<!--                                            <span class="input-group-text"><i class="bi bi-person"></i></span>-->
+<!--                                            <input type="text" class="form-control" value="Марія Сидоренко (дружина)" disabled>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="contact-info-item">-->
+<!--                                        <label class="form-label">Телефон екстреного контакту</label>-->
+<!--                                        <div class="input-group">-->
+<!--                                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>-->
+<!--                                            <input type="tel" class="form-control" value="+380661234568" disabled>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="tab-pane fade" id="notification-settings">-->
+<!--                            <h3 class="mb-4">Налаштування сповіщень</h3>-->
+
+<!--                            <div class="form-check form-switch mb-3">-->
+<!--                                <input class="form-check-input" type="checkbox" id="emailNotifications" checked>-->
+<!--                                <label class="form-check-label" for="emailNotifications">-->
+<!--                                    Email сповіщення-->
+<!--                                </label>-->
+<!--                                <div class="form-text">Отримувати сповіщення про нові донори, статус запитів тощо на email.</div>-->
+<!--                            </div>-->
+
+<!--                            <div class="form-check form-switch mb-3">-->
+<!--                                <input class="form-check-input" type="checkbox" id="smsNotifications" checked>-->
+<!--                                <label class="form-check-label" for="smsNotifications">-->
+<!--                                    SMS сповіщення-->
+<!--                                </label>-->
+<!--                                <div class="form-text">Отримувати термінові сповіщення через SMS.</div>-->
+<!--                            </div>-->
+
+<!--                            <div class="form-check form-switch mb-3">-->
+<!--                                <input class="form-check-input" type="checkbox" id="reminderNotifications" checked>-->
+<!--                                <label class="form-check-label" for="reminderNotifications">-->
+<!--                                    Нагадування-->
+<!--                                </label>-->
+<!--                                <div class="form-text">Отримувати нагадування про заплановані переливання крові.</div>-->
+<!--                            </div>-->
+
+<!--                            <div class="form-check form-switch mb-3">-->
+<!--                                <input class="form-check-input" type="checkbox" id="donorMatchNotifications" checked>-->
+<!--                                <label class="form-check-label" for="donorMatchNotifications">-->
+<!--                                    Сповіщення про сумісного донора-->
+<!--                                </label>-->
+<!--                                <div class="form-text">Отримувати сповіщення, коли знайдено сумісного донора.</div>-->
+<!--                            </div>-->
+
+<!--                            <div class="mt-4">-->
+<!--                                <button class="btn btn-primary">Зберегти налаштування</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="tab-pane fade" id="security">-->
+<!--                            <h3 class="mb-4">Безпека</h3>-->
+
+<!--                            <div class="card mb-4">-->
+<!--                                <div class="card-header">-->
+<!--                                    Зміна паролю-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="mb-3">-->
+<!--                                        <label for="currentPassword" class="form-label">Поточний пароль</label>-->
+<!--                                        <input type="password" class="form-control" id="currentPassword">-->
+<!--                                    </div>-->
+
+<!--                                    <div class="mb-3">-->
+<!--                                        <label for="newPassword" class="form-label">Новий пароль</label>-->
+<!--                                        <input type="password" class="form-control" id="newPassword">-->
+<!--                                    </div>-->
+
+<!--                                    <div class="mb-3">-->
+<!--                                        <label for="confirmNewPassword" class="form-label">Підтвердження нового паролю</label>-->
+<!--                                        <input type="password" class="form-control" id="confirmNewPassword">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+

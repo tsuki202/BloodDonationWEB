@@ -44,6 +44,7 @@ public class MainWebController {
         if (userOptional.isPresent()) {
             UserData user = userOptional.get();
             if (user.getPassword().equals(password)) {
+                // Successful login
                 switch (user.getRole().toUpperCase()) {
                     case "ADMIN":
                         return "redirect:/admin/dashboard?userId=" + user.getId();
@@ -53,15 +54,15 @@ public class MainWebController {
                         return "redirect:/recipient/dashboard?userId=" + user.getId();
                     default:
                         model.addAttribute("error", "Невідома роль користувача");
-                        return "auth/login";
+                        return "/login";
                 }
             } else {
                 model.addAttribute("error", "Невірний пароль");
-                return "auth/login";
+                return "/login";
             }
         } else {
             model.addAttribute("error", "Користувач не знайдений");
-            return "auth/login";
+            return "/login";
         }
     }
     @GetMapping("/profile")
@@ -71,7 +72,7 @@ public class MainWebController {
 
     @GetMapping("/add-donation")
     public String donationSchedulePage() {
-        return "add-donation"; // бо це файл add-donation.html
+        return "add-donation"; // бо це файл add-donationD.html
     }
 
     @GetMapping("/donation-history")
@@ -91,111 +92,111 @@ public class MainWebController {
 
         if (success) {
             model.addAttribute("message", "Реєстрація успішна. Будь ласка, увійдіть у систему.");
-            return "auth/login";
+            return "/login";
         } else {
             model.addAttribute("error", "Помилка при реєстрації. Можливо, логін вже існує.");
-            return "auth/register";
+            return "/register";
         }
     }
-
-    // 📋 Панель адміністратора
-    @GetMapping("/admin/dashboard")
-    public String adminDashboard(@RequestParam Integer userId, Model model) {
-        model.addAttribute("userId", userId);
-        return "admin/dashboard";
-    }
+//
+//    // 📋 Панель адміністратора
+//    @GetMapping("/admin/dashboard")
+//    public String adminDashboard(@RequestParam Integer userId, Model model) {
+//        model.addAttribute("userId", userId);
+//        return "admin/dashboard";
+//    }
 
     // 👤 Список користувачів для адміністратора
-    @GetMapping("/admin/users")
-    public String adminUsers(@RequestParam Integer userId, @RequestParam String role, Model model) {
-        List<UserData> users = userService.getUsersByRole(role);
-        model.addAttribute("userId", userId);
-        model.addAttribute("role", role);
-        model.addAttribute("users", users);
-        return "admin/users";
-    }
+//    @GetMapping("/admin/users")
+//    public String adminUsers(@RequestParam Integer userId, @RequestParam String role, Model model) {
+//        List<UserData> users = userService.getUsersByRole(role);
+//        model.addAttribute("userId", userId);
+//        model.addAttribute("role", role);
+//        model.addAttribute("users", users);
+//        return "admin/users";
+//    }
 
-    @PostMapping("/admin/delete-user")
-    public String deleteUser(@RequestParam Integer adminId, @RequestParam String username, @RequestParam String role) {
-        boolean success = userService.deleteUserByUsernameAndRole(username, role);
+//    @PostMapping("/admin/delete-user")
+//    public String deleteUser(@RequestParam Integer adminId, @RequestParam String username, @RequestParam String role) {
+//        boolean success = userService.deleteUserByUsernameAndRole(username, role);
+//
+//        if (success) {
+//            return "redirect:/admin/users?userId=" + adminId + "&role=" + role + "&message=Користувача успішно видалено";
+//        } else {
+//            return "redirect:/admin/users?userId=" + adminId + "&role=" + role + "&error=Помилка при видаленні користувача";
+//        }
+//    }
+//    // 👤 Профіль донора
+//    @GetMapping("/donor/dashboard")
+//    public String donorDashboard(@RequestParam Integer userId, Model model) {
+//        Optional<Donor> donorOptional = donorService.getDonorById(userId);
+//        return donorOptional.map(donor -> {
+//            model.addAttribute("donor", donor);
+//            return "donor/dashboard";
+//        }).orElse("redirect:/auth/login?error=Профіль не знайдено");
+//    }
+//
+//    @GetMapping("/donor/profile")
+//    public String donorProfile(@RequestParam Integer userId, Model model) {
+//        Optional<Donor> donorOptional = donorService.getDonorById(userId);
+//        return donorOptional.map(donor -> {
+//            model.addAttribute("donor", donor);
+//            return "donor/profile";
+//        }).orElse("redirect:/auth/login?error=Профіль не знайдено");
+//    }
 
-        if (success) {
-            return "redirect:/admin/users?userId=" + adminId + "&role=" + role + "&message=Користувача успішно видалено";
-        } else {
-            return "redirect:/admin/users?userId=" + adminId + "&role=" + role + "&error=Помилка при видаленні користувача";
-        }
-    }
-    // 👤 Профіль донора
-    @GetMapping("/donor/dashboard")
-    public String donorDashboard(@RequestParam Integer userId, Model model) {
-        Optional<Donor> donorOptional = donorService.getDonorById(userId);
-        return donorOptional.map(donor -> {
-            model.addAttribute("donor", donor);
-            return "donor/dashboard";
-        }).orElse("redirect:/auth/login?error=Профіль не знайдено");
-    }
+//    @PostMapping("/donor/update-profile")
+//    public String updateProfile(@RequestParam Integer userId, @RequestParam String name, @RequestParam String surname,
+//                                @RequestParam Integer year, @RequestParam String bloodType, @RequestParam Integer weight,
+//                                @RequestParam Integer height) {
+//        boolean success = donorService.updateDonorInfo(userId, name, surname, year, bloodType, weight, height);
+//        if (success) {
+//            return "redirect:/donor/profile?userId=" + userId + "&message=Профіль успішно оновлено";
+//        } else {
+//            return "redirect:/donor/profile?userId=" + userId + "&error=Помилка при оновленні профілю";
+//        }
+//    }
 
-    @GetMapping("/donor/profile")
-    public String donorProfile(@RequestParam Integer userId, Model model) {
-        Optional<Donor> donorOptional = donorService.getDonorById(userId);
-        return donorOptional.map(donor -> {
-            model.addAttribute("donor", donor);
-            return "donor/profile";
-        }).orElse("redirect:/auth/login?error=Профіль не знайдено");
-    }
+//    // 🩸 Історія донацій
+//    @GetMapping("/donor/donations")
+//    public String donationHistory(@RequestParam Integer userId, Model model) {
+//        Optional<Donor> donorOptional = donorService.getDonorById(userId);
+//        if (donorOptional.isPresent()) {
+//            List<Donation> donations = donorService.getDonationHistory(userId);
+//            model.addAttribute("donor", donorOptional.get());
+//            model.addAttribute("donations", donations);
+//            return "donor/donations";
+//        } else {
+//            return "redirect:/auth/login?error=Профіль не знайдено";
+//        }
+//    }
 
-    @PostMapping("/donor/update-profile")
-    public String updateProfile(@RequestParam Integer userId, @RequestParam String name, @RequestParam String surname,
-                                @RequestParam Integer year, @RequestParam String bloodType, @RequestParam Integer weight,
-                                @RequestParam Integer height) {
-        boolean success = donorService.updateDonorInfo(userId, name, surname, year, bloodType, weight, height);
-        if (success) {
-            return "redirect:/donor/profile?userId=" + userId + "&message=Профіль успішно оновлено";
-        } else {
-            return "redirect:/donor/profile?userId=" + userId + "&error=Помилка при оновленні профілю";
-        }
-    }
+//    @GetMapping("/donor/add-donation")
+//    public String showAddDonationForm(@RequestParam Integer userId, Model model) {
+//        Optional<Donor> donorOptional = donorService.getDonorById(userId);
+//        if (donorOptional.isPresent()) {
+//            model.addAttribute("donor", donorOptional.get());
+//            model.addAttribute("today", Date.valueOf(LocalDate.now()));
+//            return "donor/add-donation";
+//        } else {
+//            return "redirect:/auth/login?error=Профіль не знайдено";
+//        }
+//    }
 
-    // 🩸 Історія донацій
-    @GetMapping("/donor/donations")
-    public String donationHistory(@RequestParam Integer userId, Model model) {
-        Optional<Donor> donorOptional = donorService.getDonorById(userId);
-        if (donorOptional.isPresent()) {
-            List<Donation> donations = donorService.getDonationHistory(userId);
-            model.addAttribute("donor", donorOptional.get());
-            model.addAttribute("donations", donations);
-            return "donor/donations";
-        } else {
-            return "redirect:/auth/login?error=Профіль не знайдено";
-        }
-    }
-
-    @GetMapping("/donor/add-donation")
-    public String showAddDonationForm(@RequestParam Integer userId, Model model) {
-        Optional<Donor> donorOptional = donorService.getDonorById(userId);
-        if (donorOptional.isPresent()) {
-            model.addAttribute("donor", donorOptional.get());
-            model.addAttribute("today", Date.valueOf(LocalDate.now()));
-            return "donor/add-donation";
-        } else {
-            return "redirect:/auth/login?error=Профіль не знайдено";
-        }
-    }
-
-    @PostMapping("/donor/add-donation")
-    public String addDonation(@RequestParam Integer userId, @RequestParam Date donationDate,
-                              @RequestParam Integer amount, @RequestParam String location) {
-        boolean success = donorService.createDonationRecord(userId, donationDate, amount, location);
-        if (success) {
-            return "redirect:/donor/donations?userId=" + userId + "&message=Донацію успішно додано";
-        } else {
-            return "redirect:/donor/add-donation?userId=" + userId + "&error=Помилка при додаванні донації";
-        }
-    }
-
-    // 🎯 Панель реципієнта
-    @GetMapping("/recipient/dashboard")
-    public String recipientDashboard() {
-        return "recipient/dashboard";
-    }
+//    @PostMapping("/donor/add-donation")
+//    public String addDonation(@RequestParam Integer userId, @RequestParam Date donationDate,
+//                              @RequestParam Integer amount, @RequestParam String location) {
+//        boolean success = donorService.createDonationRecord(userId, donationDate, amount, location);
+//        if (success) {
+//            return "redirect:/donor/donations?userId=" + userId + "&message=Донацію успішно додано";
+//        } else {
+//            return "redirect:/donor/add-donation?userId=" + userId + "&error=Помилка при додаванні донації";
+//        }
+//    }
+//
+//    // 🎯 Панель реципієнта
+//    @GetMapping("/recipient/dashboard")
+//    public String recipientDashboard() {
+//        return "recipient/dashboard";
+//    }
 }

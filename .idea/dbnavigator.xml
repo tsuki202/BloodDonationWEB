@@ -4,13 +4,22 @@
     <mappings />
     <preferences />
   </component>
+  <component name="DBNavigator.Project.DataEditorManager">
+    <record-view-column-sorting-type value="BY_INDEX" />
+    <value-preview-text-wrapping value="true" />
+    <value-preview-pinned value="false" />
+  </component>
   <component name="DBNavigator.Project.DatabaseAssistantManager">
-    <assistants />
+    <assistants>
+      <assistant-state connection-id="41680e2e-2898-4cc6-a637-8910c022f530" default-profile-name="" selected-profile-name="" selected-model-name="" assistant-type="GENERIC" selected-action="SHOW_SQL" availability="UNAVAILABLE" acknowledgement="NONE">
+        <messages />
+      </assistant-state>
+    </assistants>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="true" />
+    <show-object-properties value="false" />
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
@@ -18,8 +27,59 @@
       <console name="Connection" type="STANDARD" schema="mysql" session="Main" />
     </connection>
   </component>
+  <component name="DBNavigator.Project.DatabaseEditorStateManager">
+    <last-used-providers />
+  </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="41680e2e-2898-4cc6-a637-8910c022f530" object-ref="schemas/users/tables/users" />
+    </open-files>
+  </component>
+  <component name="DBNavigator.Project.DatabaseSessionManager">
+    <connection id="41680e2e-2898-4cc6-a637-8910c022f530" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.donations" active-filter-id="EMPTY_FILTER">
+      <filter id="f4cdd134-9ffe-46bb-8a01-bb079a338bcc" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.recipients" active-filter-id="EMPTY_FILTER">
+      <filter id="f77f3939-cecf-49ca-8ba2-9cfd8b835acc" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.donor_questionnaires" active-filter-id="">
+      <filter id="31c761ac-c845-4baf-941a-42457d60e4c6" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.users" active-filter-id="EMPTY_FILTER">
+      <filter id="a016a809-ea83-4c58-9fe8-e9575911425c" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.donors" active-filter-id="EMPTY_FILTER">
+      <filter id="d33b883f-04a3-41ce-9e1d-c35488626d47" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.admins" active-filter-id="">
+      <filter id="80d8bffe-1d52-4b3e-81da-3b4b2df06ad7" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.donor" active-filter-id="" />
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.donation_schedule" active-filter-id="">
+      <filter id="35c6c820-b85d-4c99-be75-8a0a09862592" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="41680e2e-2898-4cc6-a637-8910c022f530" dataset="users.recipient_requests" active-filter-id="">
+      <filter id="efc89841-1f3e-4409-acda-3d794e21803a" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -33,7 +93,7 @@
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="9.2" />
+          <database-version value="8.0" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />

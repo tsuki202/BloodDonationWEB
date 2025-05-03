@@ -1,10 +1,462 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="uk">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Сумісні донори - Система донорства крові</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--        .donor-card {-->
+<!--            border-radius: 10px;-->
+<!--            overflow: hidden;-->
+<!--            box-shadow: 0 4px 6px rgba(0,0,0,0.1);-->
+<!--            margin-bottom: 20px;-->
+<!--            transition: transform 0.3s ease;-->
+<!--        }-->
+<!--        .donor-card:hover {-->
+<!--            transform: translateY(-5px);-->
+<!--        }-->
+<!--        .donor-header {-->
+<!--            background-color: #dc3545;-->
+<!--            color: white;-->
+<!--            padding: 15px;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        .donor-availability {-->
+<!--            position: absolute;-->
+<!--            top: 15px;-->
+<!--            right: 15px;-->
+<!--            width: 20px;-->
+<!--            height: 20px;-->
+<!--            border-radius: 50%;-->
+<!--        }-->
+<!--        .availability-available {-->
+<!--            background-color: #198754;-->
+<!--        }-->
+<!--        .availability-busy {-->
+<!--            background-color: #ffc107;-->
+<!--        }-->
+<!--        .availability-unavailable {-->
+<!--            background-color: #dc3545;-->
+<!--        }-->
+<!--        .donor-body {-->
+<!--            padding: 20px;-->
+<!--            position: relative;-->
+<!--        }-->
+<!--        .donor-image {-->
+<!--            width: 80px;-->
+<!--            height: 80px;-->
+<!--            border-radius: 50%;-->
+<!--            object-fit: cover;-->
+<!--            border: 3px solid #dc3545;-->
+<!--        }-->
+<!--        .blood-badge {-->
+<!--            position: absolute;-->
+<!--            top: 10px;-->
+<!--            right: 10px;-->
+<!--            font-size: 1.5rem;-->
+<!--            font-weight: bold;-->
+<!--            color: #dc3545;-->
+<!--        }-->
+<!--        .donor-actions {-->
+<!--            margin-top: 15px;-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--        }-->
+<!--        .donor-stats {-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--            margin-top: 15px;-->
+<!--            padding-top: 15px;-->
+<!--            border-top: 1px solid #e9ecef;-->
+<!--        }-->
+<!--        .donor-stat {-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        .donor-stat-value {-->
+<!--            font-size: 1.2rem;-->
+<!--            font-weight: bold;-->
+<!--            color: #dc3545;-->
+<!--        }-->
+<!--        .filter-card {-->
+<!--            background-color: #f8f9fa;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 10px;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .compatibility-info {-->
+<!--            background-color: #f8f9fa;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 10px;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .blood-chart {-->
+<!--            width: 100%;-->
+<!--            max-width: 400px;-->
+<!--            margin: 0 auto;-->
+<!--        }-->
+<!--        .blood-type-cell {-->
+<!--            text-align: center;-->
+<!--            padding: 10px;-->
+<!--            border: 1px solid #dee2e6;-->
+<!--        }-->
+<!--        .blood-type-cell.compatible {-->
+<!--            background-color: #d1e7dd;-->
+<!--        }-->
+<!--        .blood-type-cell.incompatible {-->
+<!--            background-color: #f8d7da;-->
+<!--        }-->
+<!--        .blood-type-cell.your-type {-->
+<!--            background-color: #cfe2ff;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
 
-</body>
-</html>
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-danger">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand" href="/">🩸 Система донорства крові</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav me-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/recipient/dashboard">Моя панель</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="/recipient/compatible-donors">Сумісні донори</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/recipient/profile">Мій профіль</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <ul class="navbar-nav ms-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/logout">Вихід</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="container mt-4">-->
+<!--    <h1>Сумісні донори</h1>-->
+<!--    <p class="lead">Знайдіть підходящих донорів для вашої групи крові B+</p>-->
+
+<!--    <div class="row">-->
+<!--        <div class="col-lg-3">-->
+<!--            <div class="filter-card">-->
+<!--                <h4>Фільтри пошуку</h4>-->
+<!--                <form>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label class="form-label">Група крові</label>-->
+<!--                        <select class="form-select">-->
+<!--                            <option value="B+">B+ (поточна)</option>-->
+<!--                            <option value="B-">B-</option>-->
+<!--                            <option value="O+">O+</option>-->
+<!--                            <option value="O-">O-</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+
+<!--                    <div class="mb-3">-->
+<!--                        <label class="form-label">Доступність</label>-->
+<!--                        <div class="form-check">-->
+<!--                            <input class="form-check-input" type="checkbox" id="availableNow" checked>-->
+<!--                            <label class="form-check-label" for="availableNow">-->
+<!--                                Доступні зараз-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                        <div class="form-check">-->
+<!--                            <input class="form-check-input" type="checkbox" id="availableSoon" checked>-->
+<!--                            <label class="form-check-label" for="availableSoon">-->
+<!--                                Доступні найближчим часом-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="mb-3">-->
+<!--                        <label class="form-label">Відстань</label>-->
+<!--                        <select class="form-select">-->
+<!--                            <option value="5">до 5 км</option>-->
+<!--                            <option value="10">до 10 км</option>-->
+<!--                            <option value="25" selected>до 25 км</option>-->
+<!--                            <option value="50">до 50 км</option>-->
+<!--                            <option value="100">до 100 км</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+
+<!--                    <div class="mb-3">-->
+<!--                        <label class="form-label">Здавав раніше</label>-->
+<!--                        <div class="form-check">-->
+<!--                            <input class="form-check-input" type="checkbox" id="experiencedDonors">-->
+<!--                            <label class="form-check-label" for="experiencedDonors">-->
+<!--                                Тільки досвідчені донори-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <button type="submit" class="btn btn-danger w-100">Застосувати фільтри</button>-->
+<!--                </form>-->
+<!--            </div>-->
+
+<!--            <div class="compatibility-info">-->
+<!--                <h4>Сумісність груп крові</h4>-->
+<!--                <p>Ваша група крові: <strong>B+</strong></p>-->
+<!--                <p>Ви можете отримувати від:</p>-->
+<!--                <div class="blood-chart">-->
+<!--                    <div class="row g-0">-->
+<!--                        <div class="col-3 blood-type-cell compatible">B+</div>-->
+<!--                        <div class="col-3 blood-type-cell compatible">B-</div>-->
+<!--                        <div class="col-3 blood-type-cell compatible">O+</div>-->
+<!--                        <div class="col-3 blood-type-cell compatible">O-</div>-->
+<!--                    </div>-->
+<!--                    <div class="row g-0">-->
+<!--                        <div class="col-3 blood-type-cell incompatible">A+</div>-->
+<!--                        <div class="col-3 blood-type-cell incompatible">A-</div>-->
+<!--                        <div class="col-3 blood-type-cell incompatible">AB+</div>-->
+<!--                        <div class="col-3 blood-type-cell incompatible">AB-</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <p class="mt-3 text-center">-->
+<!--                    <span class="badge bg-success me-2">Сумісні</span>-->
+<!--                    <span class="badge bg-danger">Несумісні</span>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-lg-9">-->
+<!--            <div class="d-flex justify-content-between align-items-center mb-4">-->
+<!--                <div>-->
+<!--                    <h4>Знайдено 12 сумісних донорів</h4>-->
+<!--                </div>-->
+<!--                <div class="d-flex">-->
+<!--                    <div class="input-group me-2">-->
+<!--                        <input type="text" class="form-control" placeholder="Пошук донорів...">-->
+<!--                        <button class="btn btn-outline-danger" type="button">Пошук</button>-->
+<!--                    </div>-->
+<!--                    <div class="dropdown">-->
+<!--                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                            Сортування-->
+<!--                        </button>-->
+<!--                        <ul class="dropdown-menu" aria-labelledby="sortDropdown">-->
+<!--                            <li><a class="dropdown-item" href="#">За відстанню</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">За доступністю</a></li>-->
+<!--                            <li><a class="dropdown-item" href="#">За досвідом</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                &lt;!&ndash; Donor 1 &ndash;&gt;-->
+<!--                <div class="col-md-6">-->
+<!--                    <div class="donor-card">-->
+<!--                        <div class="donor-header">-->
+<!--                            <h5 class="mb-0">Петро Іваненко</h5>-->
+<!--                            <span class="badge bg-light text-dark">12 успішних донацій</span>-->
+<!--                        </div>-->
+<!--                        <div class="donor-body">-->
+<!--                            <div class="donor-availability availability-available" title="Доступний зараз"></div>-->
+<!--                            <div class="d-flex align-items-center">-->
+<!--                                <img src="/api/placeholder/80/80" alt="Донор" class="donor-image me-3">-->
+<!--                                <div>-->
+<!--                                    <p class="mb-1"><i class="bi bi-geo-alt me-1"></i> Відстань: 3.2 км</p>-->
+<!--                                    <p class="mb-1"><i class="bi bi-calendar me-1"></i> Остання донація: 30.03.2025</p>-->
+<!--                                    <p class="mb-0"><i class="bi bi-check-circle me-1"></i> Повністю перевірений</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="blood-badge">B+</div>-->
+
+<!--                            <div class="donor-stats">-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">12</div>-->
+<!--                                    <div class="donor-stat-label">Донацій</div>-->
+<!--                                </div>-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">100%</div>-->
+<!--                                    <div class="donor-stat-label">Успішність</div>-->
+<!--                                </div>-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">5★</div>-->
+<!--                                    <div class="donor-stat-label">Рейтинг</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="donor-actions">-->
+<!--                                <button class="btn btn-outline-danger"><i class="bi bi-chat"></i> Зв'язатися</button>-->
+<!--                                <button class="btn btn-danger"><i class="bi bi-calendar-plus"></i> Запросити</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Donor 2 &ndash;&gt;-->
+<!--                <div class="col-md-6">-->
+<!--                    <div class="donor-card">-->
+<!--                        <div class="donor-header">-->
+<!--                            <h5 class="mb-0">Марія Ковальчук</h5>-->
+<!--                            <span class="badge bg-light text-dark">8 успішних донацій</span>-->
+<!--                        </div>-->
+<!--                        <div class="donor-body">-->
+<!--                            <div class="donor-availability availability-available" title="Доступний зараз"></div>-->
+<!--                            <div class="d-flex align-items-center">-->
+<!--                                <img src="/api/placeholder/80/80" alt="Донор" class="donor-image me-3">-->
+<!--                                <div>-->
+<!--                                    <p class="mb-1"><i class="bi bi-geo-alt me-1"></i> Відстань: 5.7 км</p>-->
+<!--                                    <p class="mb-1"><i class="bi bi-calendar me-1"></i> Остання донація: 15.04.2025</p>-->
+<!--                                    <p class="mb-0"><i class="bi bi-check-circle me-1"></i> Повністю перевірена</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="blood-badge">O-</div>-->
+
+<!--                            <div class="donor-stats">-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">8</div>-->
+<!--                                    <div class="donor-stat-label">Донацій</div>-->
+<!--                                </div>-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">100%</div>-->
+<!--                                    <div class="donor-stat-label">Успішність</div>-->
+<!--                                </div>-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">4.8★</div>-->
+<!--                                    <div class="donor-stat-label">Рейтинг</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="donor-actions">-->
+<!--                                <button class="btn btn-outline-danger"><i class="bi bi-chat"></i> Зв'язатися</button>-->
+<!--                                <button class="btn btn-danger"><i class="bi bi-calendar-plus"></i> Запросити</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Donor 3 &ndash;&gt;-->
+<!--                <div class="col-md-6">-->
+<!--                    <div class="donor-card">-->
+<!--                        <div class="donor-header">-->
+<!--                            <h5 class="mb-0">Андрій Петренко</h5>-->
+<!--                            <span class="badge bg-light text-dark">5 успішних донацій</span>-->
+<!--                        </div>-->
+<!--                        <div class="donor-body">-->
+<!--                            <div class="donor-availability availability-busy" title="Буде доступний скоро"></div>-->
+<!--                            <div class="d-flex align-items-center">-->
+<!--                                <img src="/api/placeholder/80/80" alt="Донор" class="donor-image me-3">-->
+<!--                                <div>-->
+<!--                                    <p class="mb-1"><i class="bi bi-geo-alt me-1"></i> Відстань: 12.3 км</p>-->
+<!--                                    <p class="mb-1"><i class="bi bi-calendar me-1"></i> Остання донація: 10.04.2025</p>-->
+<!--                                    <p class="mb-0"><i class="bi bi-check-circle me-1"></i> Повністю перевірений</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="blood-badge">B-</div>-->
+
+<!--                            <div class="donor-stats">-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">5</div>-->
+<!--                                    <div class="donor-stat-label">Донацій</div>-->
+<!--                                </div>-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">100%</div>-->
+<!--                                    <div class="donor-stat-label">Успішність</div>-->
+<!--                                </div>-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">4.5★</div>-->
+<!--                                    <div class="donor-stat-label">Рейтинг</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="donor-actions">-->
+<!--                                <button class="btn btn-outline-danger"><i class="bi bi-chat"></i> Зв'язатися</button>-->
+<!--                                <button class="btn btn-danger"><i class="bi bi-calendar-plus"></i> Запросити</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Donor 4 &ndash;&gt;-->
+<!--                <div class="col-md-6">-->
+<!--                    <div class="donor-card">-->
+<!--                        <div class="donor-header">-->
+<!--                            <h5 class="mb-0">Олена Коваленко</h5>-->
+<!--                            <span class="badge bg-light text-dark">15 успішних донацій</span>-->
+<!--                        </div>-->
+<!--                        <div class="donor-body">-->
+<!--                            <div class="donor-availability availability-unavailable" title="Недоступний зараз"></div>-->
+<!--                            <div class="d-flex align-items-center">-->
+<!--                                <img src="/api/placeholder/80/80" alt="Донор" class="donor-image me-3">-->
+<!--                                <div>-->
+<!--                                    <p class="mb-1"><i class="bi bi-geo-alt me-1"></i> Відстань: 8.1 км</p>-->
+<!--                                    <p class="mb-1"><i class="bi bi-calendar me-1"></i> Остання донація: 01.05.2025</p>-->
+<!--                                    <p class="mb-0"><i class="bi bi-check-circle me-1"></i> Повністю перевірена</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="blood-badge">O+</div>-->
+
+<!--                            <div class="donor-stats">-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">15</div>-->
+<!--                                    <div class="donor-stat-label">Донацій</div>-->
+<!--                                </div>-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">100%</div>-->
+<!--                                    <div class="donor-stat-label">Успішність</div>-->
+<!--                                </div>-->
+<!--                                <div class="donor-stat">-->
+<!--                                    <div class="donor-stat-value">5★</div>-->
+<!--                                    <div class="donor-stat-label">Рейтинг</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="donor-actions">-->
+<!--                                <button class="btn btn-outline-danger"><i class="bi bi-chat"></i> Зв'язатися</button>-->
+<!--                                <button class="btn btn-danger" disabled><i class="bi bi-calendar-plus"></i> Запросити</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <nav>-->
+<!--                <ul class="pagination justify-content-center">-->
+<!--                    <li class="page-item disabled">-->
+<!--                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Попередня</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item active">-->
+<!--                        <a class="page-link" href="#">1</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link" href="#">2</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link" href="#">3</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link" href="#">Наступна</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<footer class="mt-5 py-4 bg-dark text-white">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <p>&copy; 2025 Система донорства крові. Всі права захищено.</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-6 text-md-end">-->
+<!--                <a href="#" class="text-white me-3">Політика конфіденційності</a>-->
+<!--                <a href="#" class="text-white">Умови використання</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->

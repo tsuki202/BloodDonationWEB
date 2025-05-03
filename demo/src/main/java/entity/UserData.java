@@ -14,11 +14,14 @@ public class UserData {
     private Integer id;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String login;
 
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     private String role;
+
+    @Column(nullable = false)
+    private String username;
 }

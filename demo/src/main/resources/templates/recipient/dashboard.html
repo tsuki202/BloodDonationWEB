@@ -1,10 +1,239 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="uk">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Панель керування реципієнта - Система донорства крові</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--        .status-card {-->
+<!--            border-radius: 10px;-->
+<!--            padding: 20px;-->
+<!--            margin-bottom: 20px;-->
+<!--            box-shadow: 0 4px 6px rgba(0,0,0,0.1);-->
+<!--            height: 100%;-->
+<!--        }-->
+<!--        .status-urgent {-->
+<!--            background-color: #f8d7da;-->
+<!--            border-left: 5px solid #dc3545;-->
+<!--        }-->
+<!--        .status-normal {-->
+<!--            background-color: #d1e7dd;-->
+<!--            border-left: 5px solid #198754;-->
+<!--        }-->
+<!--        .status-pending {-->
+<!--            background-color: #fff3cd;-->
+<!--            border-left: 5px solid #ffc107;-->
+<!--        }-->
+<!--        .notification-item {-->
+<!--            border-bottom: 1px solid #e9ecef;-->
+<!--            padding: 10px 0;-->
+<!--            margin-bottom: 5px;-->
+<!--        }-->
+<!--        .notification-item:last-child {-->
+<!--            border-bottom: none;-->
+<!--        }-->
+<!--        .blood-info {-->
+<!--            text-align: center;-->
+<!--            padding: 20px;-->
+<!--            background-color: #f8f9fa;-->
+<!--            border-radius: 10px;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .blood-type {-->
+<!--            font-size: 3rem;-->
+<!--            font-weight: bold;-->
+<!--            color: #dc3545;-->
+<!--        }-->
+<!--        .timeline-item {-->
+<!--            position: relative;-->
+<!--            padding-left: 30px;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .timeline-item:before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            left: 0;-->
+<!--            top: 0;-->
+<!--            height: 100%;-->
+<!--            width: 2px;-->
+<!--            background-color: #dc3545;-->
+<!--        }-->
+<!--        .timeline-item:after {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            left: -6px;-->
+<!--            top: 0;-->
+<!--            height: 14px;-->
+<!--            width: 14px;-->
+<!--            border-radius: 50%;-->
+<!--            background-color: #dc3545;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
 
-</body>
-</html>
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-danger">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand" href="/">🩸 Система донорства крові</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav me-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="/recipient/dashboard">Моя панель</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/recipient/compatible-donors">Сумісні донори</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/recipient/profile">Мій профіль</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <ul class="navbar-nav ms-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/logout">Вихід</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="container mt-4">-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg-8">-->
+<!--            <h1>Вітаємо, Олег Сидоренко!</h1>-->
+<!--            <p class="lead">Ваша панель керування для моніторингу потреб у крові та доступних донацій.</p>-->
+
+<!--            <div class="row mt-4">-->
+<!--                <div class="col-md-6">-->
+<!--                    <div class="status-card status-urgent">-->
+<!--                        <h3>Статус запиту</h3>-->
+<!--                        <p class="lead mb-0">Очікується підтвердження</p>-->
+<!--                        <small class="text-muted">Останнє оновлення: 02.05.2025</small>-->
+<!--                        <hr>-->
+<!--                        <p>Ваш запит на кров групи B+ знаходиться на розгляді. Очікуваний час відповіді: 24 години.</p>-->
+<!--                        <button class="btn btn-danger">Терміновий запит</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+<!--                    <div class="status-card status-normal">-->
+<!--                        <h3>Доступність крові</h3>-->
+<!--                        <p class="lead mb-0">Ваша група: <span class="blood-type">B+</span></p>-->
+<!--                        <hr>-->
+<!--                        <p>Поточний рівень запасів для вашої групи крові:</p>-->
+<!--                        <div class="progress mb-3">-->
+<!--                            <div class="progress-bar bg-danger" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>-->
+<!--                        </div>-->
+<!--                        <p class="text-success"><i class="bi bi-check-circle-fill"></i> Достатній рівень запасів</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="mt-4">-->
+<!--                <h2>Історія запитів</h2>-->
+<!--                <div class="timeline-container">-->
+<!--                    <div class="timeline-item">-->
+<!--                        <h5>28.04.2025 - Запит на донорство</h5>-->
+<!--                        <p>Зроблено запит на 2 одиниці B+ крові для планової операції.</p>-->
+<!--                        <span class="badge bg-success">Виконано</span>-->
+<!--                    </div>-->
+<!--                    <div class="timeline-item">-->
+<!--                        <h5>15.03.2025 - Терміновий запит</h5>-->
+<!--                        <p>Терміновий запит на 1 одиницю B+ крові для невідкладної процедури.</p>-->
+<!--                        <span class="badge bg-success">Виконано</span>-->
+<!--                    </div>-->
+<!--                    <div class="timeline-item">-->
+<!--                        <h5>10.02.2025 - Консультація</h5>-->
+<!--                        <p>Консультація з лікарем щодо потреб у крові для наступної процедури.</p>-->
+<!--                        <span class="badge bg-info">Інформаційний</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-lg-4">-->
+<!--            <div class="blood-info">-->
+<!--                <h3>Інформація про кров</h3>-->
+<!--                <p class="blood-type">B+</p>-->
+<!--                <div class="mt-3">-->
+<!--                    <h5>Сумісні групи крові</h5>-->
+<!--                    <p>Ви можете отримувати від:</p>-->
+<!--                    <span class="badge bg-danger mx-1">B+</span>-->
+<!--                    <span class="badge bg-danger mx-1">B-</span>-->
+<!--                    <span class="badge bg-danger mx-1">O+</span>-->
+<!--                    <span class="badge bg-danger mx-1">O-</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-header bg-primary text-white">-->
+<!--                    <h5 class="mb-0">Сповіщення</h5>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <div class="notification-item">-->
+<!--                        <p class="mb-1"><strong>03.05.2025</strong></p>-->
+<!--                        <p>Знайдено потенційного донора для вашого запиту. Очікуйте на підтвердження.</p>-->
+<!--                    </div>-->
+<!--                    <div class="notification-item">-->
+<!--                        <p class="mb-1"><strong>02.05.2025</strong></p>-->
+<!--                        <p>Ваш запит на кров успішно зареєстровано в системі.</p>-->
+<!--                    </div>-->
+<!--                    <div class="notification-item">-->
+<!--                        <p class="mb-1"><strong>01.05.2025</strong></p>-->
+<!--                        <p>Нагадування про майбутню медичну процедуру 05.05.2025.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="card-footer text-center">-->
+<!--                    <a href="#" class="btn btn-sm btn-outline-primary">Усі сповіщення</a>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card">-->
+<!--                <div class="card-header bg-secondary text-white">-->
+<!--                    <h5 class="mb-0">Корисна інформація</h5>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <ul class="list-group list-group-flush">-->
+<!--                        <li class="list-group-item d-flex align-items-center">-->
+<!--                            <i class="bi bi-file-text me-2 text-primary"></i>-->
+<!--                            <a href="#">Довідник пацієнта</a>-->
+<!--                        </li>-->
+<!--                        <li class="list-group-item d-flex align-items-center">-->
+<!--                            <i class="bi bi-calendar-event me-2 text-primary"></i>-->
+<!--                            <a href="#">Графік роботи центру донорства</a>-->
+<!--                        </li>-->
+<!--                        <li class="list-group-item d-flex align-items-center">-->
+<!--                            <i class="bi bi-question-circle me-2 text-primary"></i>-->
+<!--                            <a href="#">Часті запитання</a>-->
+<!--                        </li>-->
+<!--                        <li class="list-group-item d-flex align-items-center">-->
+<!--                            <i class="bi bi-telephone me-2 text-primary"></i>-->
+<!--                            <a href="#">Контакти невідкладної допомоги</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<footer class="mt-5 py-4 bg-dark text-white">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <p>&copy; 2025 Система донорства крові. Всі права захищено.</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-6 text-md-end">-->
+<!--                <a href="#" class="text-white me-3">Політика конфіденційності</a>-->
+<!--                <a href="#" class="text-white">Умови використання</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
