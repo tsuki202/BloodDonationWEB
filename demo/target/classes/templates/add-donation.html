@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запланувати донацію | Система донорства крові</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .page-header {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        .calendar-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .date-slot {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .date-slot:hover {
+            background-color: #f8f9fa;
+        }
+        .date-slot.selected {
+            background-color: #e3fcef;
+            border-color: #28a745;
+        }
+        .time-slot {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .time-slot:hover {
+            background-color: #f8f9fa;
+        }
+        .time-slot.selected {
+            background-color: #e3fcef;
+            border-color: #28a745;
+        }
+        .time-slot.unavailable {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        footer {
+            margin-top: 50px;
+            background-color: #343a40;
+            color: white;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+        <a class="navbar-brand" href="/">Система донорства крові</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Головна</a></li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/donation-history">Історія донацій</a>-->
+<!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" href="/add-donation">Запланувати донацію</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Реєстрація донора</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/login">Увійти</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="page-header">
+    <div class="container">
+        <h1>Запланувати донацію</h1>
+        <p class="lead">Виберіть зручний час для вашої наступної донації крові.</p>
+    </div>
+</header>
+
+<!-- Scheduling Form -->
+<section class="container mb-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="calendar-container">
+                <form id="donationScheduleForm">
+                    <!-- Donation Type Selection -->
+                    <div class="mb-4">
+                        <h3 class="mb-3">Тип донації</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="donationType" id="wholeBlood" value="wholeBlood" checked>
+                                    <label class="form-check-label" for="wholeBlood">
+                                        Цільна кров
+                                        <small class="d-block text-muted">Тривалість: 30-45 хв</small>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="donationType" id="plasma" value="plasma">
+                                    <label class="form-check-label" for="plasma">
+                                        Плазма
+                                        <small class="d-block text-muted">Тривалість: 45-60 хв</small>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="donationType" id="platelets" value="platelets">
+                                    <label class="form-check-label" for="platelets">
+                                        Тромбоцити
+                                        <small class="d-block text-muted">Тривалість: 1.5-2 год</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donation Location -->
+                    <div class="mb-4">
+                        <h3 class="mb-3">Місце донації</h3>
+                        <select class="form-select" id="donationLocation" required>
+                            <option value="" selected disabled>Виберіть центр донації крові</option>
+                            <option value="Київський міський центр крові">Київський міський центр крові</option>
+                            <option value="Обласна станція переливання крові">Обласна станція переливання крові</option>
+                            <option value="Військовий медичний центр">Військовий медичний центр</option>
+                            <option value="Мобільний пункт донації (ТРЦ 'Океан Плаза')">Мобільний пункт донації (ТРЦ "Океан Плаза")</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Selection -->
+                    <div class="mb-4">
+                        <h3 class="mb-3">Дата донації</h3>
+                        <div class="row">
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-04-29"><h5 class="mb-0">29 квітня</h5><small>Вівторок</small></div></div>
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-04-30"><h5 class="mb-0">30 квітня</h5><small>Середа</small></div></div>
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-01"><h5 class="mb-0">1 травня</h5><small>Четвер</small></div></div>
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-02"><h5 class="mb-0">2 травня</h5><small>П’ятниця</small></div></div>
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-03"><h5 class="mb-0">3 травня</h5><small>Субота</small></div></div>
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-04"><h5 class="mb-0">4 травня</h5><small>Неділя</small></div></div>
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-05"><h5 class="mb-0">5 травня</h5><small>Понеділок</small></div></div>
+                            <div class="col-md-3 mb-3"><div class="date-slot" data-date="2025-05-06"><h5 class="mb-0">6 травня</h5><small>Вівторок</small></div></div>
+                        </div>
+                        <input type="hidden" id="selectedDate" name="selectedDate" required>
+                    </div>
+
+                    <!-- Time Selection -->
+                    <div class="mb-4">
+                        <h3 class="mb-3">Час донації</h3>
+                        <div class="row" id="timeSlots">
+                            <div class="col-md-3 mb-2"><div class="time-slot" data-time="09:00">9:00</div></div>
+                            <div class="col-md-3 mb-2"><div class="time-slot" data-time="10:00">10:00</div></div>
+                            <div class="col-md-3 mb-2"><div class="time-slot" data-time="11:00">11:00</div></div>
+                            <div class="col-md-3 mb-2"><div class="time-slot" data-time="12:00">12:00</div></div>
+                            <div class="col-md-3 mb-2"><div class="time-slot" data-time="13:00">13:00</div></div>
+                            <div class="col-md-3 mb-2"><div class="time-slot" data-time="14:00">14:00</div></div>
+                            <div class="col-md-3 mb-2"><div class="time-slot" data-time="15:00">15:00</div></div>
+                            <div class="col-md-3 mb-2"><div class="time-slot" data-time="16:00">16:00</div></div>
+                        </div>
+                        <input type="hidden" id="selectedTime" name="selectedTime" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger btn-lg">Підтвердити запис</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-center">
+    <div class="container">
+        <p class="mb-0">&copy; 2025 Система донорства крові. Всі права захищено.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom Script -->
+<script>
+    const dateSlots = document.querySelectorAll('.date-slot');
+    const selectedDateInput = document.getElementById('selectedDate');
+    dateSlots.forEach(slot => {
+        slot.addEventListener('click', () => {
+            dateSlots.forEach(s => s.classList.remove('selected'));
+            slot.classList.add('selected');
+            selectedDateInput.value = slot.getAttribute('data-date');
+        });
+    });
+
+    const timeSlots = document.querySelectorAll('.time-slot');
+    const selectedTimeInput = document.getElementById('selectedTime');
+    timeSlots.forEach(slot => {
+        slot.addEventListener('click', () => {
+            if (slot.classList.contains('unavailable')) return;
+            timeSlots.forEach(s => s.classList.remove('selected'));
+            slot.classList.add('selected');
+            selectedTimeInput.value = slot.getAttribute('data-time');
+        });
+    });
+
+    document.getElementById('donationScheduleForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const type = this.donationType.value;
+        const location = document.getElementById('donationLocation').value;
+        const date = selectedDateInput.value;
+        const time = selectedTimeInput.value;
+
+        if (!location || !date || !time) {
+            alert('Будь ласка, заповніть усі поля перед підтвердженням.');
+            return;
+        }
+
+        alert(`✅ Ви записані на донацію:\n• Тип: ${type}\n• Місце: ${location}\n• Дата: ${date}\n• Час: ${time}`);
+    });
+</script>
+</body>
+</html>
