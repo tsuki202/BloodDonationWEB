@@ -1,0 +1,246 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Мій профіль - Система донорства крові</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--        .profile-header {-->
+<!--            background-color: #f8d7da;-->
+<!--            border-radius: 10px;-->
+<!--            padding: 20px;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .blood-type {-->
+<!--            font-size: 2.5rem;-->
+<!--            font-weight: bold;-->
+<!--            color: #dc3545;-->
+<!--        }-->
+<!--        .badge-donor {-->
+<!--            background-color: #dc3545;-->
+<!--            color: white;-->
+<!--            padding: 5px 10px;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 0.9rem;-->
+<!--        }-->
+<!--        .donor-info {-->
+<!--            margin-top: 15px;-->
+<!--        }-->
+<!--        .donor-info-item {-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-danger">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand" href="/">🩸 Система донорства крові</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav me-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/donor/dashboard">Панель управління</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="/donor/profile">Мій профіль</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/donor/donation-history">Історія донорства</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/donor/add-donation">Додати донацію</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <ul class="navbar-nav ms-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/logout">Вихід</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="container mt-4">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-4">-->
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-body text-center">-->
+<!--                    <div class="mb-3">-->
+<!--                        <img src="https://via.placeholder.com/150" class="rounded-circle" alt="Фото профілю">-->
+<!--                    </div>-->
+<!--                    <h4 class="card-title" th:text="${donor.fullName}">Петро Іваненко</h4>-->
+<!--                    <p class="text-muted">Донор з грудня 2023</p>-->
+<!--                    <div class="blood-type">A+ <span class="badge-donor">Донор</span></div>-->
+<!--                    <div class="mt-3">-->
+<!--                        <button class="btn btn-outline-danger btn-sm">-->
+<!--                            <i class="bi bi-pencil"></i> Редагувати профіль-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-header">-->
+<!--                    <h5 class="mb-0">Медична інформація</h5>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <div class="donor-info">-->
+<!--                        <div class="donor-info-item">-->
+<!--                            <strong>Група крові:</strong> A+-->
+<!--                        </div>-->
+<!--                        <div class="donor-info-item">-->
+<!--                            <strong>Вага:</strong> 78 кг-->
+<!--                        </div>-->
+<!--                        <div class="donor-info-item">-->
+<!--                            <strong>Зріст:</strong> 182 см-->
+<!--                        </div>-->
+<!--                        <div class="donor-info-item">-->
+<!--                            <strong>Медичні стани:</strong> Немає-->
+<!--                        </div>-->
+<!--                        <div class="donor-info-item">-->
+<!--                            <strong>Алергії:</strong> Немає-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-md-8">-->
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-header">-->
+<!--                    <h5 class="mb-0">Особиста інформація</h5>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <form>-->
+<!--                        <div class="row mb-3">-->
+<!--                            <div class="col-md-6">-->
+<!--                                <label for="firstName" class="form-label">Ім'я</label>-->
+<!--                                <input type="text" class="form-control" id="firstName" value="Петро" required>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <label for="lastName" class="form-label">Прізвище</label>-->
+<!--                                <input type="text" class="form-control" id="lastName" value="Іваненко" required>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row mb-3">-->
+<!--                            <div class="col-md-6">-->
+<!--                                <label for="email" class="form-label">Email</label>-->
+<!--                                <input type="email" class="form-control" id="email" value="petro@example.com" required>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <label for="phone" class="form-label">Телефон</label>-->
+<!--                                <input type="tel" class="form-control" id="phone" value="+380971234567" required>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row mb-3">-->
+<!--                            <div class="col-md-12">-->
+<!--                                <label for="address" class="form-label">Адреса</label>-->
+<!--                                <input type="text" class="form-control" id="address" value="вул. Шевченка, 15, кв. 42, м. Київ, 01001">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row mb-3">-->
+<!--                            <div class="col-md-6">-->
+<!--                                <label for="birthDate" class="form-label">Дата народження</label>-->
+<!--                                <input type="date" class="form-control" id="birthDate" value="1990-05-15">-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <label for="gender" class="form-label">Стать</label>-->
+<!--                                <select class="form-select" id="gender">-->
+<!--                                    <option value="male" selected>Чоловіча</option>-->
+<!--                                    <option value="female">Жіноча</option>-->
+<!--                                    <option value="other">Інша</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="emergencyContact" class="form-label">Контакт у разі надзвичайної ситуації</label>-->
+<!--                            <input type="text" class="form-control" id="emergencyContact" value="Марія Іваненко, +380501234567">-->
+<!--                        </div>-->
+<!--                        <div class="text-end">-->
+<!--                            <button type="submit" class="btn btn-danger">Зберегти зміни</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-header">-->
+<!--                    <h5 class="mb-0">Налаштування облікового запису</h5>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <form>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="username" class="form-label">Логін</label>-->
+<!--                            <input type="text" class="form-control" id="username" value="donor123" disabled>-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="currentPassword" class="form-label">Поточний пароль</label>-->
+<!--                            <input type="password" class="form-control" id="currentPassword">-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="newPassword" class="form-label">Новий пароль</label>-->
+<!--                            <input type="password" class="form-control" id="newPassword">-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="confirmPassword" class="form-label">Підтвердіть новий пароль</label>-->
+<!--                            <input type="password" class="form-control" id="confirmPassword">-->
+<!--                        </div>-->
+<!--                        <div class="text-end">-->
+<!--                            <button type="submit" class="btn btn-danger">Змінити пароль</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-header">-->
+<!--                    <h5 class="mb-0">Повідомлення</h5>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <div class="form-check form-switch mb-3">-->
+<!--                        <input class="form-check-input" type="checkbox" id="emailNotifications" checked>-->
+<!--                        <label class="form-check-label" for="emailNotifications">Отримувати повідомлення на email</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check form-switch mb-3">-->
+<!--                        <input class="form-check-input" type="checkbox" id="smsNotifications" checked>-->
+<!--                        <label class="form-check-label" for="smsNotifications">Отримувати SMS-повідомлення</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check form-switch mb-3">-->
+<!--                        <input class="form-check-input" type="checkbox" id="donationReminders" checked>-->
+<!--                        <label class="form-check-label" for="donationReminders">Нагадування про можливість донації</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check form-switch mb-3">-->
+<!--                        <input class="form-check-input" type="checkbox" id="emergencyDonations" checked>-->
+<!--                        <label class="form-check-label" for="emergencyDonations">Екстрені запити на донацію</label>-->
+<!--                    </div>-->
+<!--                    <div class="text-end">-->
+<!--                        <button type="submit" class="btn btn-danger">Зберегти налаштування</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<footer class="bg-dark text-white py-4 mt-5">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <h5>Система донорства крові</h5>-->
+<!--                <p>© 2025. Всі права захищено.</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-6 text-md-end">-->
+<!--                <h5>Контакти</h5>-->
+<!--                <p>Email: info@donorkrovi.ua<br>Телефон: +380 44 123 4567</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->

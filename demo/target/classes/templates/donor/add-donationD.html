@@ -1,0 +1,303 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Додати донацію - Система донорства крові</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">-->
+<!--    <style>-->
+<!--        .donation-type-card {-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--            border: 2px solid transparent;-->
+<!--        }-->
+<!--        .donation-type-card:hover {-->
+<!--            transform: translateY(-5px);-->
+<!--            box-shadow: 0 10px 20px rgba(0,0,0,0.1);-->
+<!--        }-->
+<!--        .donation-type-card.selected {-->
+<!--            border-color: #dc3545;-->
+<!--            background-color: #fff0f0;-->
+<!--        }-->
+<!--        .donation-type-icon {-->
+<!--            font-size: 2rem;-->
+<!--            color: #dc3545;-->
+<!--            margin-bottom: 15px;-->
+<!--        }-->
+<!--        .form-section {-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+<!--        .form-title {-->
+<!--            margin-bottom: 20px;-->
+<!--            padding-bottom: 10px;-->
+<!--            border-bottom: 1px solid #eee;-->
+<!--        }-->
+<!--        .required-field::after {-->
+<!--            content: "*";-->
+<!--            color: #dc3545;-->
+<!--            margin-left: 4px;-->
+<!--        }-->
+<!--        .document-upload {-->
+<!--            border: 2px dashed #ddd;-->
+<!--            padding: 20px;-->
+<!--            text-align: center;-->
+<!--            border-radius: 5px;-->
+<!--            margin-top: 10px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-danger">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand" href="/">🩸 Система донорства крові</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav me-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/donor/dashboard">Панель управління</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/donor/profile">Мій профіль</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/donor/donation-history">Історія донорства</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="/donor/add-donation">Додати донацію</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <ul class="navbar-nav ms-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/logout">Вихід</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="container mt-4">-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg-8 mx-auto">-->
+<!--            <div class="card">-->
+<!--                <div class="card-header bg-light">-->
+<!--                    <h3 class="mb-0">Додати нову донацію</h3>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <form th:action="@{/donor/add-donation}" method="post" enctype="multipart/form-data">-->
+<!--                        <div class="form-section">-->
+<!--                            <h4 class="form-title">Тип донації</h4>-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-4 mb-3">-->
+<!--                                    <div class="card donation-type-card text-center p-3 selected" onclick="selectDonationType(this, 'wholeBlood')">-->
+<!--                                        <div class="donation-type-icon">-->
+<!--                                            <i class="bi bi-droplet-fill"></i>-->
+<!--                                        </div>-->
+<!--                                        <h5>Цільна кров</h5>-->
+<!--                                        <p class="small text-muted">Стандартна донація</p>-->
+<!--                                        <input type="radio" name="donationType" value="wholeBlood" class="d-none" checked>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4 mb-3">-->
+<!--                                    <div class="card donation-type-card text-center p-3" onclick="selectDonationType(this, 'plasma')">-->
+<!--                                        <div class="donation-type-icon">-->
+<!--                                            <i class="bi bi-water"></i>-->
+<!--                                        </div>-->
+<!--                                        <h5>Плазма</h5>-->
+<!--                                        <p class="small text-muted">Плазмаферез</p>-->
+<!--                                        <input type="radio" name="donationType" value="plasma" class="d-none">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4 mb-3">-->
+<!--                                    <div class="card donation-type-card text-center p-3" onclick="selectDonationType(this, 'platelets')">-->
+<!--                                        <div class="donation-type-icon">-->
+<!--                                            <i class="bi bi-record-circle"></i>-->
+<!--                                        </div>-->
+<!--                                        <h5>Тромбоцити</h5>-->
+<!--                                        <p class="small text-muted">Тромбоцитаферез</p>-->
+<!--                                        <input type="radio" name="donationType" value="platelets" class="d-none">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-section">-->
+<!--                            <h4 class="form-title">Інформація про донацію</h4>-->
+<!--                            <div class="row mb-3">-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <label for="donationDate" class="form-label required-field">Дата донації</label>-->
+<!--                                    <input type="date" class="form-control" id="donationDate" name="donationDate" required max="2025-05-03">-->
+<!--                                </div>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <label for="donationTime" class="form-label">Час донації</label>-->
+<!--                                    <input type="time" class="form-control" id="donationTime" name="donationTime">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row mb-3">-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <label for="donationCenter" class="form-label required-field">Центр донації</label>-->
+<!--                                    <select class="form-select" id="donationCenter" name="donationCenter" required>-->
+<!--                                        <option value="" selected disabled>Виберіть центр донації</option>-->
+<!--                                        <option value="1">Київський міський центр крові</option>-->
+<!--                                        <option value="2">Обласна станція переливання крові</option>-->
+<!--                                        <option value="3">Військовий медичний центр</option>-->
+<!--                                        <option value="4">Інститут гематології та трансфузіології</option>-->
+<!--                                        <option value="5">Мобільний пункт збору крові</option>-->
+<!--                                        <option value="other">Інше (вказати)</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-6 mt-2" id="otherCenterDiv" style="display: none;">-->
+<!--                                    <label for="otherCenter" class="form-label">Вкажіть назву центру</label>-->
+<!--                                    <input type="text" class="form-control" id="otherCenter" name="otherCenter">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row mb-3">-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <label for="donationVolume" class="form-label required-field">Об'єм донації (мл)</label>-->
+<!--                                    <input type="number" class="form-control" id="donationVolume" name="donationVolume" required min="100" max="1000">-->
+<!--                                </div>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <label for="donationPurpose" class="form-label">Призначення</label>-->
+<!--                                    <select class="form-select" id="donationPurpose" name="donationPurpose">-->
+<!--                                        <option value="" selected>Не вказано</option>-->
+<!--                                        <option value="general">Загальне використання</option>-->
+<!--                                        <option value="emergency">Екстрена потреба</option>-->
+<!--                                        <option value="surgery">Операція</option>-->
+<!--                                        <option value="specific">Для конкретної особи</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row mb-3" id="specificRecipientDiv" style="display: none;">-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <label for="specificRecipient" class="form-label">Ім'я реципієнта</label>-->
+<!--                                    <input type="text" class="form-control" id="specificRecipient" name="specificRecipient">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-section">-->
+<!--                            <h4 class="form-title">Документи</h4>-->
+<!--                            <p class="text-muted">Завантажте скан або фотографію довідки про донацію для підтвердження</p>-->
+<!--                            <div class="document-upload" onclick="document.getElementById('documentFile').click()">-->
+<!--                                <i class="bi bi-upload fs-2 mb-2"></i>-->
+<!--                                <p id="fileNameDisplay">Натисніть, щоб завантажити документ</p>-->
+<!--                                <input type="file" id="documentFile" name="documentFile" class="d-none" accept="image/*,.pdf">-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-section">-->
+<!--                            <h4 class="form-title">Додаткова інформація</h4>-->
+<!--                            <div class="mb-3">-->
+<!--                                <label for="comments" class="form-label">Коментарі або примітки</label>-->
+<!--                                <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>-->
+<!--                            </div>-->
+<!--                            <div class="form-check mb-3">-->
+<!--                                <input class="form-check-input" type="checkbox" id="feltGood" name="feltGood" checked>-->
+<!--                                <label class="form-check-label" for="feltGood">-->
+<!--                                    Я почувався добре під час та після донації-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="form-check mb-3">-->
+<!--                                <input class="form-check-input" type="checkbox" id="shareStory" name="shareStory">-->
+<!--                                <label class="form-check-label" for="shareStory">-->
+<!--                                    Я згоден поділитися своєю історією донорства анонімно-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-section border-top pt-4">-->
+<!--                            <div class="form-check mb-3">-->
+<!--                                <input class="form-check-input" type="checkbox" id="confirmTruth" name="confirmTruth" required>-->
+<!--                                <label class="form-check-label required-field" for="confirmTruth">-->
+<!--                                    Я підтверджую, що вся надана інформація є правдивою та точною-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="text-center">-->
+<!--                                <button type="submit" class="btn btn-danger btn-lg px-5">Додати донацію</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<footer class="bg-dark text-white py-4 mt-5">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <h5>Система донорства крові</h5>-->
+<!--                <p>© 2025. Всі права захищено.</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-6 text-md-end">-->
+<!--                <h5>Контакти</h5>-->
+<!--                <p>Email: info@donorkrovi.ua<br>Телефон: +380 44 123 4567</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>-->
+<!--<script>-->
+<!--    function selectDonationType(element, type) {-->
+<!--        // Remove selected class from all cards-->
+<!--        document.querySelectorAll('.donation-type-card').forEach(card => {-->
+<!--            card.classList.remove('selected');-->
+<!--        });-->
+
+<!--        // Add selected class to clicked card-->
+<!--        element.classList.add('selected');-->
+
+<!--        // Check the hidden radio button-->
+<!--        document.querySelector('input[value="' + type + '"]').checked = true;-->
+
+<!--        // Update volume suggestions based on donation type-->
+<!--        const volumeInput = document.getElementById('donationVolume');-->
+<!--        if (type === 'wholeBlood') {-->
+<!--            volumeInput.value = 450;-->
+<!--        } else if (type === 'plasma') {-->
+<!--            volumeInput.value = 600;-->
+<!--        } else if (type === 'platelets') {-->
+<!--            volumeInput.value = 200;-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Show/hide additional fields based on selection-->
+<!--    document.getElementById('donationCenter').addEventListener('change', function() {-->
+<!--        const otherCenterDiv = document.getElementById('otherCenterDiv');-->
+<!--        if (this.value === 'other') {-->
+<!--            otherCenterDiv.style.display = 'block';-->
+<!--        } else {-->
+<!--            otherCenterDiv.style.display = 'none';-->
+<!--        }-->
+<!--    });-->
+
+<!--    document.getElementById('donationPurpose').addEventListener('change', function() {-->
+<!--        const specificRecipientDiv = document.getElementById('specificRecipientDiv');-->
+<!--        if (this.value === 'specific') {-->
+<!--            specificRecipientDiv.style.display = 'block';-->
+<!--        } else {-->
+<!--            specificRecipientDiv.style.display = 'none';-->
+<!--        }-->
+<!--    });-->
+
+<!--    // Display filename when a file is selected-->
+<!--    document.getElementById('documentFile').addEventListener('change', function() {-->
+<!--        const fileName = this.files[0]?.name || 'Файл не вибрано';-->
+<!--        document.getElementById('fileNameDisplay').textContent = fileName;-->
+<!--    });-->
+
+<!--    // Initialize date picker-->
+<!--    flatpickr("#donationDate", {-->
+<!--        maxDate: "today",-->
+<!--        dateFormat: "Y-m-d"-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
